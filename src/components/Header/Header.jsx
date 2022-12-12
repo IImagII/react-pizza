@@ -1,5 +1,5 @@
 import React from 'react'
-import img from '../../img/pizza-logo.svg'
+import img from '../../assets/img/pizza-logo.svg'
 
 export const Header = () => {
    return (
