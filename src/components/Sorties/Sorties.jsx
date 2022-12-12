@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const Sorties = () => {
+   const [sort, setSort] = useState(0)
+   const sortStates = ['популярности', 'цене', 'алфавиту']
+
+   const handleSortChange = index => {
+      setSort(index)
+   }
    return (
       <div className='sort'>
          <div className='sort__label'>
@@ -21,9 +27,15 @@ export const Sorties = () => {
          </div>
          <div className='sort__popup'>
             <ul>
-               <li className='active'>популярности</li>
-               <li>цене</li>
-               <li>алфавиту</li>
+               {sortStates.map((sortState, index) => (
+                  <li
+                     key={index}
+                     className={sort === index ? 'active' : ''}
+                     onClick={() => handleSortChange()}
+                  >
+                     {sortState}
+                  </li>
+               ))}
             </ul>
          </div>
       </div>

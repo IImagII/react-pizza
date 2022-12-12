@@ -1,29 +1,53 @@
 import React, { useState } from 'react'
 
-export const PizzaBlock = ({ title, price }) => {
+export const PizzaBlock = ({ ...pizzas }) => {
    const [count, setCount] = useState(0)
+   const [sizeIndex, setSizeIndex] = useState(0)
+   const [naimenChange, setNaimenChange] = useState(0)
 
+   const naimens = ['тонкое', 'традиционное']
+
+   const handleChangeSize = index => {
+      setSizeIndex(index)
+   }
+
+   const handleNaimensChange = index => {
+      setNaimenChange(index)
+   }
    return (
       <div className='pizza-block'>
          <img
             className='pizza-block__image'
-            src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
+            src={pizzas.imageUrl}
             alt='Pizza'
          />
-         <h4 className='pizza-block__title'>{title}</h4>
+         <h4 className='pizza-block__title'>{pizzas.title}</h4>
          <div className='pizza-block__selector'>
             <ul>
-               <li className='active'>тонкое</li>
-               <li>традиционное</li>
+               {naimens.map((naimen, i) => (
+                  <li
+                     key={i}
+                     onClick={() => handleNaimensChange(i)}
+                     className={naimenChange === i ? 'active' : ''}
+                  >
+                     {naimen}
+                  </li>
+               ))}
             </ul>
             <ul>
-               <li className='active'>26 см.</li>
-               <li>30 см.</li>
-               <li>40 см.</li>
+               {pizzas.sizes.map((size, i) => (
+                  <li
+                     key={i}
+                     onClick={() => handleChangeSize(i)}
+                     className={sizeIndex === i ? 'active' : ''}
+                  >
+                     {size}см.
+                  </li>
+               ))}
             </ul>
          </div>
          <div className='pizza-block__bottom'>
-            <div className='pizza-block__price'>от {price} ₽</div>
+            <div className='pizza-block__price'>от {pizzas.price} ₽</div>
             <button
                onClick={() => setCount(count + 1)}
                className='button button--outline button--add'
