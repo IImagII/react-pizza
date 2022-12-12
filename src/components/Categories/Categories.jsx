@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
 export const Categories = () => {
-   const [activeIndex, setActiveIndex] = useState(3)
+   const [activeIndex, setActiveIndex] = useState(0)
+
+   const 
 
    const onClickCategory = index => {
       setActiveIndex(index)
