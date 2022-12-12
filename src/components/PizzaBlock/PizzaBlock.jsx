@@ -3,17 +3,10 @@ import React, { useState } from 'react'
 export const PizzaBlock = ({ ...pizzas }) => {
    const [count, setCount] = useState(0)
    const [sizeIndex, setSizeIndex] = useState(0)
-   const [naimenChange, setNaimenChange] = useState(0)
+   const [typeChange, setTypeChange] = useState(0)
 
-   const naimens = ['тонкое', 'традиционное']
+   const typeNames = ['тонкое', 'традиционное']
 
-   const handleChangeSize = index => {
-      setSizeIndex(index)
-   }
-
-   const handleNaimensChange = index => {
-      setNaimenChange(index)
-   }
    return (
       <div className='pizza-block'>
          <img
@@ -24,13 +17,13 @@ export const PizzaBlock = ({ ...pizzas }) => {
          <h4 className='pizza-block__title'>{pizzas.title}</h4>
          <div className='pizza-block__selector'>
             <ul>
-               {naimens.map((naimen, i) => (
+               {pizzas.types.map(typeName => (
                   <li
-                     key={i}
-                     onClick={() => handleNaimensChange(i)}
-                     className={naimenChange === i ? 'active' : ''}
+                     key={typeName}
+                     onClick={() => setTypeChange(typeName)}
+                     className={typeChange === typeName ? 'active' : ''}
                   >
-                     {naimen}
+                     {typeNames[typeName]}
                   </li>
                ))}
             </ul>
@@ -38,10 +31,10 @@ export const PizzaBlock = ({ ...pizzas }) => {
                {pizzas.sizes.map((size, i) => (
                   <li
                      key={i}
-                     onClick={() => handleChangeSize(i)}
+                     onClick={() => setSizeIndex(i)}
                      className={sizeIndex === i ? 'active' : ''}
                   >
-                     {size}см.
+                     {size} см.
                   </li>
                ))}
             </ul>
