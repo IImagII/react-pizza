@@ -40,7 +40,7 @@ export const PizzaBlock = ({ ...pizzas }) => {
             </ul>
          </div>
          <div className='pizza-block__bottom'>
-            <div className='pizza-block__price'>от {pizzas.price} ₽</div>
+            <div className='pizza-block__price'>от {pizzas.price} ₴</div>
             <button
                onClick={() => setCount(count + 1)}
                className='button button--outline button--add'
