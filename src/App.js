@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Categories } from './components/Categories/Categories'
 import { Header } from './components/Header/Header'
 import { PizzaBlock } from './components/PizzaBlock/PizzaBlock'
+import { PizzaBlockSkeleton } from './components/PizzaBlockSkeleton/PizzaBlockSkeleton'
 import { Sorties } from './components/Sorties/Sorties'
 
 import './scss/app.scss'
@@ -28,7 +29,7 @@ function App() {
                <h2 className='content__title'>Все пиццы</h2>
                <div className='content__items'>
                   {items.map(pizza => (
-                     <PizzaBlock {...pizza} key={pizza.id} />
+                     <PizzaBlockSkeleton {...pizza} key={pizza.id} />
                   ))}
                </div>
             </div>
