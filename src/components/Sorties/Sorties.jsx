@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 
-export const Sorties = () => {
-   const [sort, setSort] = useState(0)
-   const [isVisible, setIsVisible] = useState(false)
-   const sortStates = ['популярности', 'цене', 'алфавиту']
-   const sortName = sortStates[sort]
+export const Sorties = ({ value, setSortType }) => {
+   const [isVisible, setIsVisible] = useState(false) // для отображения окна выбора при нажатии pop-up
+   // const sortStates = ['популярности', 'цене', 'алфавиту']
+   const sortStates = [
+      { name: 'популярности', sort: 'rating' },
+      { name: 'цене', sort: 'price' },
+      { name: 'алфавиту', sort: 'title' },
+   ] //это делается для того чтобы разное название передавать в данный компонент одно в родительский для сортировкки дургое
 
-   const handleSortChange = index => {
+   const handleSortChange = (obj, index) => {
       setIsVisible(false)
-      setSort(index)
+      setSortType(index)
+      setSortType(obj)
    }
 
    return (
@@ -27,18 +31,18 @@ export const Sorties = () => {
                />
             </svg>
             <b>Сортировка по:</b>
-            <span onClick={() => setIsVisible(!isVisible)}>{sortName}</span>
+            <span onClick={() => setIsVisible(!isVisible)}>{value.name}</span>
          </div>
          {isVisible && (
             <div className='sort__popup'>
                <ul>
-                  {sortStates.map((sortState, index) => (
+                  {sortStates.map((obj, index) => (
                      <li
                         key={index}
-                        className={sort === index ? 'active' : ''}
-                        onClick={() => handleSortChange(index)}
+                        className={value.sort === obj.sort ? 'active' : ''}
+                        onClick={() => handleSortChange(obj, index)}
                      >
-                        {sortState}
+                        {obj.name}
                      </li>
                   ))}
                </ul>
