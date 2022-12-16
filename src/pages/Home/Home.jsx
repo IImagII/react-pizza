@@ -16,6 +16,7 @@ export const Home = () => {
             setItems(response)
             setIsLoading(false)
          })
+      window.scroll(0, 0)
    }, [])
    return (
       <div className='container'>
