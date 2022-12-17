@@ -15,14 +15,14 @@ export const Home = ({ searchValue, setSearchValue }) => {
       sort: 'rating',
    }) // состояние сортировки
 
-   const debouncedSearchTerm = useDebounce(searchValue, 500) //задержка для поиска
+   const debouncedSearchTerm = useDebounce(searchValue, 700) //задержка для поиска
+   const category = categoryId === 0 ? '' : `category=${categoryId}`
+   const search = debouncedSearchTerm ? `&search=${debouncedSearchTerm}` : ''
 
    useEffect(() => {
       setIsLoading(true) //для того чтобы скелетон подгружался на каждом запросе
       fetch(
-         `https://6398b9fffe03352a94dc96b2.mockapi.io/items?category=${
-            categoryId === 0 ? '' : categoryId
-         }&sortBy=${sortType.sort}&order=asc`
+         `https://6398b9fffe03352a94dc96b2.mockapi.io/items?${category}&sortBy=${sortType.sort}&order=asc${search}`
       )
          .then(response => response.json())
          .then(response => {
@@ -30,13 +30,9 @@ export const Home = ({ searchValue, setSearchValue }) => {
             setIsLoading(false)
          })
       window.scroll(0, 0) //чтобы при переходе на страницу с другой страницы автоматически страница переходилась вверх
-   }, [sortType.sort, categoryId])
+   }, [sortType.sort, categoryId, search])
 
-   const pizzas = items
-      .filter(obj => {
-         return obj.title.toLowerCase().includes(searchValue)
-      })
-      .map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
+   const pizzas = items.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
 
    const skeletons = [...new Array(6)].map((_, i) => (
       <PizzaBlockSkeleton key={i} />
