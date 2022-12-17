@@ -43,7 +43,6 @@ body {
       justify-content: space-between;
       @media (max-width: 1260px) {
          flex-direction: column;
-
          gap: 15px;
       }
       @media (max-width: 600px) {
@@ -66,6 +65,12 @@ body {
       .content__title {
          margin: 0;
       }
+   }
+   @media (max-width: 1260px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
    }
 }
 
