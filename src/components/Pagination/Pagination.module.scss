@@ -1,10 +1,30 @@
 .root {
    display: flex;
    justify-content: center;
+
    li {
+      display: inline-block;
+   }
+   a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fe5f1e;
       padding: 10px;
+      width: 40px;
+      height: 40px;
       border: 1px solid #fe5f1e;
       border-radius: 30px;
+      margin-right: 10px;
+      cursor: pointer;
+   }
+   :global {
+      .selected {
+         a {
+            background-color: #fe5f1e;
+            color: #ffffff;
+         }
+      }
    }
 }
 // :global {

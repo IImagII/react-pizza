@@ -4,9 +4,12 @@ export const Sorties = ({ value, setSortType }) => {
    const [isVisible, setIsVisible] = useState(false) // для отображения окна выбора при нажатии pop-up
    // const sortStates = ['популярности', 'цене', 'алфавиту']
    const sortStates = [
-      { name: 'популярности', sort: 'rating' },
-      { name: 'цене', sort: 'price' },
-      { name: 'алфавиту', sort: 'title' },
+      { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
+      { name: 'цене по ув.', sort: 'price', number: 'asc' },
+      { name: 'алфавиту А-Я', sort: 'title', number: 'asc' },
+      { name: 'популярности по ум.', sort: 'rating', number: 'desc' },
+      { name: 'цене по ум.', sort: 'price', number: 'desc' },
+      { name: 'алфавиту Я-А', sort: 'title', number: 'desc' },
    ] //это делается для того чтобы разное название передавать в данный компонент одно в родительский для сортировкки дургое
 
    const handleSortChange = (obj, index) => {
@@ -39,7 +42,7 @@ export const Sorties = ({ value, setSortType }) => {
                   {sortStates.map((obj, index) => (
                      <li
                         key={index}
-                        className={value.sort === obj.sort ? 'active' : ''}
+                        className={value.name === obj.name ? 'active' : ''}
                         onClick={() => handleSortChange(obj, index)}
                      >
                         {obj.name}
