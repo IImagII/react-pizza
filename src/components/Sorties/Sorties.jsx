@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSortState } from '../../store/Slice/filterSlice'
 
 export const Sorties = ({ value, setSortType }) => {
    const [isVisible, setIsVisible] = useState(false) // для отображения окна выбора при нажатии pop-up
    // const sortStates = ['популярности', 'цене', 'алфавиту']
+   const sortState = useSelector(state => state.filter.sortType)
+   const dispatch = useDispatch()
    const sortStates = [
       { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
       { name: 'цене по ув.', sort: 'price', number: 'asc' },
@@ -14,10 +18,10 @@ export const Sorties = ({ value, setSortType }) => {
 
    const handleSortChange = (obj, index) => {
       setIsVisible(false)
-      setSortType(index)
-      setSortType(obj)
+      dispatch(setSortState(index))
+      dispatch(setSortState(obj))
    }
-
+   console.log('sortState :>> ', sortState)
    return (
       <div className='sort'>
          <div className='sort__label'>
@@ -34,7 +38,9 @@ export const Sorties = ({ value, setSortType }) => {
                />
             </svg>
             <b>Сортировка по:</b>
-            <span onClick={() => setIsVisible(!isVisible)}>{value.name}</span>
+            <span onClick={() => setIsVisible(!isVisible)}>
+               {sortState.name}
+            </span>
          </div>
          {isVisible && (
             <div className='sort__popup'>
@@ -42,7 +48,7 @@ export const Sorties = ({ value, setSortType }) => {
                   {sortStates.map((obj, index) => (
                      <li
                         key={index}
-                        className={value.name === obj.name ? 'active' : ''}
+                        className={sortState.name === obj.name ? 'active' : ''}
                         onClick={() => handleSortChange(obj, index)}
                      >
                         {obj.name}

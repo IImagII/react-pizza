@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-
+import { useSelector, useDispatch } from 'react-redux'
 import { Categories } from '../../components/Categories/Categories'
 import { Pagination } from '../../components/Pagination/Pagination'
 import { PizzaBlock } from '../../components/PizzaBlock/PizzaBlock'
@@ -8,17 +8,16 @@ import { Sorties } from '../../components/Sorties/Sorties'
 import useDebounce from '../../hooks/useDebounce'
 import { paths } from '../../paths'
 import { SearchContext } from '../../hooks/Search/SearchProvider'
+import { setCategoryId } from '../../store/Slice/filterSlice'
 
 export const Home = () => {
+   const categoryId = useSelector(state => state.filter.categoryId)
+   const sortType = useSelector(state => state.filter.sortType)
+   const dispatch = useDispatch()
+
    const { searchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
    const [items, setItems] = useState([])
    const [isLoading, setIsLoading] = useState(true)
-   const [categoryId, setCategoryId] = useState(0) // состояние категории
-   const [sortType, setSortType] = useState({
-      name: 'популярности по ув.',
-      sort: 'rating',
-      number: 'desc',
-   }) // состояние сортировки
 
    const [page, setPage] = useState(1) //состояние пагинации
 
@@ -53,9 +52,9 @@ export const Home = () => {
          <div className='content__top'>
             <Categories
                value={categoryId}
-               onClickCategotyId={index => setCategoryId(index)}
+               onClickCategotyId={index => dispatch(setCategoryId(index))}
             />
-            <Sorties value={sortType} setSortType={setSortType} />
+            <Sorties />
          </div>
          <h2 className='content__title'>Все пиццы</h2>
          <div className='content__items'>{isLoading ? skeletons : pizzas}</div>
