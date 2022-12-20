@@ -8,12 +8,9 @@ import { Sorties } from '../../components/Sorties/Sorties'
 import useDebounce from '../../hooks/useDebounce'
 import { paths } from '../../paths'
 import { SearchContext } from '../../hooks/Search/SearchProvider'
-import { setCategoryId } from '../../store/Slice/filterSlice'
 
 export const Home = () => {
-   const categoryId = useSelector(state => state.filter.categoryId)
-   const sortType = useSelector(state => state.filter.sortType)
-   const dispatch = useDispatch()
+   const { categoryId, sortType } = useSelector(state => state.filters) //передача состояния через reduxToolkit
 
    const { searchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
    const [items, setItems] = useState([])
@@ -22,6 +19,7 @@ export const Home = () => {
    const [page, setPage] = useState(1) //состояние пагинации
 
    const debouncedSearchTerm = useDebounce(searchValue, 700) //задержка для поиска
+
    const category = categoryId === 0 ? '' : `category=${categoryId}`
    const sortSort = sortType.sort
    const sortNumber = sortType.number
@@ -50,10 +48,7 @@ export const Home = () => {
    return (
       <div className='container'>
          <div className='content__top'>
-            <Categories
-               value={categoryId}
-               onClickCategotyId={index => dispatch(setCategoryId(index))}
-            />
+            <Categories />
             <Sorties />
          </div>
          <h2 className='content__title'>Все пиццы</h2>

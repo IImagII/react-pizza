@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSortState } from '../../store/Slice/filterSlice'
 
-export const Sorties = ({ value, setSortType }) => {
+export const Sorties = () => {
    const [isVisible, setIsVisible] = useState(false) // для отображения окна выбора при нажатии pop-up
-   // const sortStates = ['популярности', 'цене', 'алфавиту']
-   const sortState = useSelector(state => state.filter.sortType)
+
+   const sortState = useSelector(state => state.filters.sortType)
    const dispatch = useDispatch()
    const sortStates = [
       { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
@@ -21,7 +21,7 @@ export const Sorties = ({ value, setSortType }) => {
       dispatch(setSortState(index))
       dispatch(setSortState(obj))
    }
-   console.log('sortState :>> ', sortState)
+
    return (
       <div className='sort'>
          <div className='sort__label'>
