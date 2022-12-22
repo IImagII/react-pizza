@@ -2,19 +2,20 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSortState } from '../../store/Slice/filterSlice'
 
+export const sortStates = [
+   { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
+   { name: 'цене по ув.', sort: 'price', number: 'asc' },
+   { name: 'алфавиту А-Я', sort: 'title', number: 'asc' },
+   { name: 'популярности по ум.', sort: 'rating', number: 'desc' },
+   { name: 'цене по ум.', sort: 'price', number: 'desc' },
+   { name: 'алфавиту Я-А', sort: 'title', number: 'desc' },
+] //это делается для того чтобы разное название передавать в данный компонент одно в родительский для сортировкки дургое
+
 export const Sorties = () => {
    const [isVisible, setIsVisible] = useState(false) // для отображения окна выбора при нажатии pop-up
 
    const sortState = useSelector(state => state.filters.sortType)
    const dispatch = useDispatch()
-   const sortStates = [
-      { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
-      { name: 'цене по ув.', sort: 'price', number: 'asc' },
-      { name: 'алфавиту А-Я', sort: 'title', number: 'asc' },
-      { name: 'популярности по ум.', sort: 'rating', number: 'desc' },
-      { name: 'цене по ум.', sort: 'price', number: 'desc' },
-      { name: 'алфавиту Я-А', sort: 'title', number: 'desc' },
-   ] //это делается для того чтобы разное название передавать в данный компонент одно в родительский для сортировкки дургое
 
    const handleSortChange = (obj, index) => {
       setIsVisible(false)
