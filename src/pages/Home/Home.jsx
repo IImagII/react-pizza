@@ -31,6 +31,7 @@ export const Home = () => {
    const search = debouncedSearchTerm ? `&search=${debouncedSearchTerm}` : ''
    const sortSort = sortType.sort
    const sortNumber = sortType.number
+
    const fetchPizzas = () => {
       const category = categoryId === 0 ? '' : `category=${categoryId}`
       const sortSort = sortType.sort
@@ -50,7 +51,7 @@ export const Home = () => {
 
    useEffect(() => {
       if (window.location.search) {
-         const params = qs.parse(window.location.search.substring(1)) // substringделаем для отго чтобы убрать ? он нам при парсинге не нужен
+         const params = qs.parse(window.location.search.substring(1)) // substring делаем для отго чтобы убрать ? он нам при парсинге не нужен
 
          const sort = sortStates.find(obj => obj.sort === params.sortSort)
 
@@ -58,6 +59,7 @@ export const Home = () => {
          isSearch.current = true
       }
    }, [])
+
    useEffect(() => {
       window.scrollTo(0, 0)
       if (!isSearch.current) {
@@ -78,7 +80,7 @@ export const Home = () => {
          navigate(`?${queryString}`) //через библиотеку формируем наши параметры
       }
       isMounted.current = true
-   }, [categoryId, sortSort, pageState, search])
+   }, [categoryId, sortSort, pageState, sortNumber])
 
    const pizzas = items.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
 
