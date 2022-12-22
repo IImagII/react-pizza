@@ -10,13 +10,13 @@ import { paths } from '../../paths'
 import { SearchContext } from '../../hooks/Search/SearchProvider'
 
 export const Home = () => {
-   const { categoryId, sortType } = useSelector(state => state.filters) //передача состояния через reduxToolkit
-
+   const { categoryId, sortType, pageState } = useSelector(
+      state => state.filters
+   ) //передача состояния через reduxToolkit
+   console.log('pageState :>> ', pageState)
    const { searchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
    const [items, setItems] = useState([])
    const [isLoading, setIsLoading] = useState(true)
-
-   const [page, setPage] = useState(1) //состояние пагинации
 
    const debouncedSearchTerm = useDebounce(searchValue, 700) //задержка для поиска
 
@@ -24,7 +24,7 @@ export const Home = () => {
    const sortSort = sortType.sort
    const sortNumber = sortType.number
    const search = debouncedSearchTerm ? `&search=${debouncedSearchTerm}` : ''
-   const pageID = debouncedSearchTerm.length > 0 ? 1 : page //для того чтобы перебрасывало на первую страницу при активации поиска
+   const pageID = debouncedSearchTerm.length > 0 ? 1 : pageState //для того чтобы перебрасывало на первую страницу при активации поиска
 
    useEffect(() => {
       setIsLoading(true) //для того чтобы скелетон подгружался на каждом запросе
@@ -53,7 +53,7 @@ export const Home = () => {
          </div>
          <h2 className='content__title'>Все пиццы</h2>
          <div className='content__items'>{isLoading ? skeletons : pizzas}</div>
-         <Pagination setPage={setPage} />
+         <Pagination />
       </div>
    )
 }

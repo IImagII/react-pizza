@@ -1,9 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import styles from './Search.module.scss'
 import { SearchContext } from '../../hooks/Search/SearchProvider'
 
 export const Search = () => {
    const { searchValue, setSearchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
+   const inputRef = useRef()
+
+   const addSearchValue = e => {
+      setSearchValue('')
+      inputRef.current.focus()
+   }
+
    return (
       <div className={styles.search}>
          {!searchValue && (
@@ -25,12 +32,13 @@ export const Search = () => {
             value={searchValue}
             type='text'
             placeholder='Поиск пиццы....'
+            ref={inputRef}
          />
 
          {searchValue && (
             <svg
                className={styles.close}
-               onClick={() => setSearchValue('')}
+               onClick={() => addSearchValue()}
                height='48'
                viewBox='0 0 48 48'
                width='48'
