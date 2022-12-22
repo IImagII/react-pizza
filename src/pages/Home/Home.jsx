@@ -48,7 +48,7 @@ export const Home = () => {
          })
       window.scroll(0, 0) //чтобы при переходе на страницу с другой страницы автоматически страница переходилась вверх
    }
-
+   //при первой загрузке  переносятся параметры в redux
    useEffect(() => {
       if (window.location.search) {
          const params = qs.parse(window.location.search.substring(1)) // substring делаем для отго чтобы убрать ? он нам при парсинге не нужен
@@ -59,7 +59,7 @@ export const Home = () => {
          isSearch.current = true
       }
    }, [])
-
+   //делается запрос общий со скролом вверх если бы первый рендер
    useEffect(() => {
       window.scrollTo(0, 0)
       if (!isSearch.current) {
@@ -68,6 +68,7 @@ export const Home = () => {
 
       isSearch.current = false
    }, [categoryId, sortSort, pageState, search, sortNumber])
+   //тут берутся параметры из адресной строки
 
    useEffect(() => {
       if (isMounted.current) {
