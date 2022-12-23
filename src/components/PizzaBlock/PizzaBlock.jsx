@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
 import { addItems } from '../../store/Slice/cartSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
-   const [count, setCount] = useState(0)
    const [sizeIndex, setSizeIndex] = useState(0)
    const [typeChange, setTypeChange] = useState(0)
-
+   const cartItem = useSelector(state =>
+      state.carts.items.find(item => item.id === id)
+   ) // ищем наш товар если id совпадает то вытягиваем свойство count
    const typeNames = ['тонкое', 'традиционное']
    const dispatch = useDispatch()
+   console.log('cartItem :>> ', cartItem)
 
+   const addCount = cartItem ? cartItem : 0
    const handleAddItems = () => {
       const item = {
          id,
          title,
          price,
          imageUrl,
-         sizeIndex,
-         typeChange,
+         sizes: sizeIndex,
+         types: typeNames[typeChange],
       }
       dispatch(addItems(item))
    }

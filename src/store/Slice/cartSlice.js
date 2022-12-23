@@ -10,17 +10,28 @@ export const cardSlice = createSlice({
    initialState,
    reducers: {
       addItems: (state, action) => {
-         state.items.push(action.payload)
+         const findItem = state.items.find(
+            item => item.id === action.payload.id
+         ) //ищем в нашем items похожий товар
+         if (findItem) {
+            // если товар нашелся то мы увеличиваем счетчик на ++
+            findItem.count++
+         } else {
+            state.items.push({
+               ...action.payload,
+               count: 1,
+            }) //просто добавление товара в корзину и ставим count =1
+         }
          state.totalPrice = state.items.reduce((total, item) => {
             return item.price + total
-         }, 0)
+         }, 0) // общий подсчет сколько стоит товар
       },
       removeItems: (state, action) => {
-         state.items = state.items.filter(item => item !== action.payload)
+         state.items = state.items.filter(item => item !== action.payload) // удаляем товар из корзины
       },
       clearItems: state => {
          state.items = []
-      },
+      }, //полностью очищаем корзину
    },
 })
 

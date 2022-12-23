@@ -29,6 +29,7 @@ export const Sorties = () => {
          }
       }
       document.body.addEventListener('click', handleClickSort)
+      return () => document.body.removeEventListener('click', handleClickSort)
    }, [])
 
    return (
