@@ -1,23 +1,34 @@
 import React, { useState } from 'react'
+import { addItems } from '../../store/Slice/cartSlice'
+import { useDispatch } from 'react-redux'
 
-export const PizzaBlock = ({ ...pizzas }) => {
+export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
    const [count, setCount] = useState(0)
    const [sizeIndex, setSizeIndex] = useState(0)
    const [typeChange, setTypeChange] = useState(0)
 
    const typeNames = ['тонкое', 'традиционное']
+   const dispatch = useDispatch()
+
+   const handleAddItems = () => {
+      const item = {
+         id,
+         title,
+         price,
+         imageUrl,
+         sizeIndex,
+         typeChange,
+      }
+      dispatch(addItems(item))
+   }
 
    return (
       <div className='pizza-block'>
-         <img
-            className='pizza-block__image'
-            src={pizzas.imageUrl}
-            alt='Pizza'
-         />
-         <h4 className='pizza-block__title'>{pizzas.title}</h4>
+         <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+         <h4 className='pizza-block__title'>{title}</h4>
          <div className='pizza-block__selector'>
             <ul>
-               {pizzas.types.map(typeName => (
+               {types.map(typeName => (
                   <li
                      key={typeName}
                      onClick={() => setTypeChange(typeName)}
@@ -28,7 +39,7 @@ export const PizzaBlock = ({ ...pizzas }) => {
                ))}
             </ul>
             <ul>
-               {pizzas.sizes.map((size, i) => (
+               {sizes.map((size, i) => (
                   <li
                      key={i}
                      onClick={() => setSizeIndex(i)}
@@ -40,9 +51,9 @@ export const PizzaBlock = ({ ...pizzas }) => {
             </ul>
          </div>
          <div className='pizza-block__bottom'>
-            <div className='pizza-block__price'>от {pizzas.price} ₴</div>
+            <div className='pizza-block__price'>от {price} ₴</div>
             <button
-               onClick={() => setCount(count + 1)}
+               onClick={handleAddItems}
                className='button button--outline button--add'
             >
                <svg
@@ -58,7 +69,7 @@ export const PizzaBlock = ({ ...pizzas }) => {
                   />
                </svg>
                <span>Добавить</span>
-               <i>{count}</i>
+               <i>0</i>
             </button>
          </div>
       </div>
