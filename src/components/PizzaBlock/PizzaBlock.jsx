@@ -8,11 +8,11 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
    const cartItem = useSelector(state =>
       state.carts.items.find(item => item.id === id)
    ) // ищем наш товар если id совпадает то вытягиваем свойство count
-   const typeNames = ['тонкое', 'традиционное']
+   const typeNames = ['тонкое ', 'традиционное ']
    const dispatch = useDispatch()
-   console.log('cartItem :>> ', cartItem)
 
-   const addCount = cartItem ? cartItem : 0
+   const addCount = cartItem ? cartItem.count : 0 // делаем проверку есть ли товар в корзине и взависимости от этого выддаем число товара в корзинеы
+
    const handleAddItems = () => {
       const item = {
          id,
@@ -72,7 +72,9 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
                   />
                </svg>
                <span>Добавить</span>
-               <i>0</i>
+               {addCount > 0 && <i>{addCount}</i>}
+               {/* делаем чтобы показывалось
+               сколько товарра заказывалось в штуках */}
             </button>
          </div>
       </div>

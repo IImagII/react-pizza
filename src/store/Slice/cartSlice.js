@@ -23,14 +23,15 @@ export const cardSlice = createSlice({
             }) //просто добавление товара в корзину и ставим count =1
          }
          state.totalPrice = state.items.reduce((total, item) => {
-            return item.price + total
+            return item.price * item.count + total
          }, 0) // общий подсчет сколько стоит товар
       },
       removeItems: (state, action) => {
-         state.items = state.items.filter(item => item !== action.payload) // удаляем товар из корзины
+         state.items = state.items.filter(item => item.id !== action.payload.id) // удаляем товар из корзины
       },
       clearItems: state => {
          state.items = []
+         state.totalPrice = 0
       }, //полностью очищаем корзину
    },
 })

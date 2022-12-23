@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 
 export const Header = () => {
    const { totalPrice, items } = useSelector(state => state.carts)
+   const totalCount = items.reduce((count, item) => {
+      return item.count + count
+   }, 0) //делаем общий подсчет нашего количества чтобы учитывалось все даже однотипные пиццы
 
    return (
       <div className='header'>
@@ -22,7 +25,7 @@ export const Header = () => {
             <Search />
             <div className='header__cart'>
                <NavLink to='/cart' className='button button--cart'>
-                  <span>{totalPrice} ₽</span>
+                  <span>{totalPrice} ₴</span>
                   <div className='button__delimiter'></div>
                   <svg
                      width='18'
@@ -53,7 +56,7 @@ export const Header = () => {
                         strokeLinejoin='round'
                      />
                   </svg>
-                  <span>{items.length}</span>
+                  <span>{totalCount}</span>
                </NavLink>
             </div>
          </div>
