@@ -10,16 +10,15 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
    ) // ищем наш товар если id совпадает то вытягиваем свойство count
    const typeNames = ['тонкое', 'традиционное']
    const dispatch = useDispatch()
-   console.log('cartItem :>> ', cartItem)
 
-   const addCount = cartItem ? cartItem : 0
+   const addCount = cartItem ? cartItem.count : 0
    const handleAddItems = () => {
       const item = {
          id,
          title,
          price,
          imageUrl,
-         sizes: sizeIndex,
+         sizes: sizes[sizeIndex],
          types: typeNames[typeChange],
       }
       dispatch(addItems(item))
@@ -72,7 +71,7 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
                   />
                </svg>
                <span>Добавить</span>
-               <i>0</i>
+               <i>{addCount}</i>
             </button>
          </div>
       </div>
