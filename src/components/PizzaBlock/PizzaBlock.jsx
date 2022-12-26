@@ -12,12 +12,8 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
    const typeNames = ['тонкое ', 'традиционное ']
    const dispatch = useDispatch()
 
-<<<<<<< HEAD
    const addCount = cartItem ? cartItem.count : 0 // делаем проверку есть ли товар в корзине и взависимости от этого выддаем число товара в корзинеы
 
-=======
-   const addCount = cartItem ? cartItem.count : 0
->>>>>>> 74473a1f3742c35adcd93afd8cca63e39111fc3d
    const handleAddItems = () => {
       const item = {
          id,
@@ -80,13 +76,9 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
                   />
                </svg>
                <span>Добавить</span>
-<<<<<<< HEAD
                {addCount > 0 && <i>{addCount}</i>}
                {/* делаем чтобы показывалось
                сколько товарра заказывалось в штуках */}
-=======
-               <i>{addCount}</i>
->>>>>>> 74473a1f3742c35adcd93afd8cca63e39111fc3d
             </button>
          </div>
       </div>

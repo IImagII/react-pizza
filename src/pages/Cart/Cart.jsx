@@ -1,16 +1,5 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-<<<<<<< HEAD
-import cartEmpty from './../../assets/img/empty-cart.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { OneCart } from './OneCart'
-import { clearItems } from '../../store/Slice/cartSlice'
-
-export const Cart = () => {
-   const { totalPrice, items } = useSelector(state => state.carts)
-
-   const dispatch = useDispatch()
-=======
+import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { ItemCart } from './ItemCart'
 import { clearItems, selectorCarts } from '../../store/Slice/cartSlice'
@@ -19,7 +8,7 @@ import { CartEmpty } from './CartEmpty'
 export const Cart = () => {
    const { totalPrice, items, addCount } = useSelector(selectorCarts)
    const dispatch = useDispatch()
-   const navigate = useNavigate()
+
    const handleClearItems = () => {
       dispatch(clearItems())
    }
@@ -27,7 +16,7 @@ export const Cart = () => {
    if (!totalPrice) {
       return <CartEmpty />
    }
->>>>>>> 74473a1f3742c35adcd93afd8cca63e39111fc3d
+
    return (
       <div className='content'>
          <div className='container container--cart'>
@@ -103,22 +92,12 @@ export const Cart = () => {
                         />
                      </svg>
 
-<<<<<<< HEAD
-                     <span onClick={() => dispatch(clearItems())}>
-                        Очистить корзину
-                     </span>
-=======
                      <span onClick={handleClearItems}>Очистить корзину</span>
->>>>>>> 74473a1f3742c35adcd93afd8cca63e39111fc3d
                   </div>
                </div>
                <div className='cart__items'>
                   {items.map(item => (
-<<<<<<< HEAD
-                     <OneCart {...item} key={item.id} />
-=======
                      <ItemCart key={item.id} {...item} />
->>>>>>> 74473a1f3742c35adcd93afd8cca63e39111fc3d
                   ))}
                </div>
                <div className='cart__bottom'>
@@ -129,11 +108,7 @@ export const Cart = () => {
                      </span>
                      <span>
                         {' '}
-<<<<<<< HEAD
                         Сумма заказа: <b>{totalPrice} ₴</b>{' '}
-=======
-                        Сумма заказа: <b>{totalPrice} ₴</b>
->>>>>>> 74473a1f3742c35adcd93afd8cca63e39111fc3d
                      </span>
                   </div>
                   <div className='cart__bottom-buttons'>
