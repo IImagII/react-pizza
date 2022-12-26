@@ -49,7 +49,7 @@ export const cardSlice = createSlice({
       }, //полностью очищаем корзину
    },
 })
-
+export const selectorCarts = state => state.carts
 export const { addItems, removeItems, clearItems, minusItems } =
    cardSlice.actions
 

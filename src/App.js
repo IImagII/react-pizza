@@ -9,6 +9,7 @@ import { NotFound } from './pages/NotFound/NotFound'
 import './scss/app.scss'
 
 import { SearchProvider } from './hooks/Search/SearchProvider'
+import { OnePizza } from './pages/Cart/OnePizza'
 
 function App() {
    return (
@@ -19,6 +20,7 @@ function App() {
                <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/cart' element={<Cart />} />
+                  <Route path='/cart/:id' element={<OnePizza />} />
                   <Route path='*' element={<NotFound />} />
                </Routes>
             </div>

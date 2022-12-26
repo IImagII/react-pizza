@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
@@ -8,19 +8,14 @@ import { PizzaBlock } from '../../components/PizzaBlock/PizzaBlock'
 import { PizzaBlockSkeleton } from '../../components/PizzaBlockSkeleton/PizzaBlockSkeleton'
 import { Sorties, sortStates } from '../../components/Sorties/Sorties'
 import useDebounce from '../../hooks/useDebounce'
-import { paths } from '../../paths'
 import { SearchContext } from '../../hooks/Search/SearchProvider'
-
-import axios from 'axios'
-import { setFilters } from '../../store/Slice/filterSlice'
-import { axiosPizzas } from '../../store/Slice/pizzasSlice'
+import { selectorFilter, setFilters } from '../../store/Slice/filterSlice'
+import { axiosPizzas, selectorPizzas } from '../../store/Slice/pizzasSlice'
 
 export const Home = () => {
-   const { categoryId, sortType, pageState } = useSelector(
-      state => state.filters
-   ) //передача состояния через reduxToolkit
+   const { categoryId, sortType, pageState } = useSelector(selectorFilter) //передача состояния через reduxToolkit
 
-   const { items, status, error } = useSelector(state => state.pizzas) //передаем состояние нашего асинхронного запроса их redux
+   const { items, status, error } = useSelector(selectorPizzas) //передаем состояние нашего асинхронного запроса их redux
 
    const navigate = useNavigate()
    const dispatch = useDispatch()
