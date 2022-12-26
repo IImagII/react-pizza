@@ -34,6 +34,10 @@ export const cardSlice = createSlice({
             // если товар нашелся то мы уменьшаем счетчик на -- в корзине
             findItem.count--
          }
+         state.totalPrice = state.items.reduce((total, item) => {
+            return item.price * item.count + total
+         }, 0) // общий подсчет сколько стоит товар
+         state.addCount = state.items.reduce((sum, item) => sum + item.count, 0) //делаем общий подсчет количества товаров
       },
       removeItems: (state, action) => {
          state.items = state.items.filter(item => item.id !== action.payload) // удаляем товар из корзины
