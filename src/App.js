@@ -20,7 +20,7 @@ function App() {
                <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/cart' element={<Cart />} />
-                  <Route path='/cart/:id' element={<OnePizza />} />
+                  <Route path='/pizza/:id' element={<OnePizza />} />
                   <Route path='*' element={<NotFound />} />
                </Routes>
             </div>

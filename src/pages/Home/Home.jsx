@@ -14,9 +14,7 @@ import { axiosPizzas, selectorPizzas } from '../../store/Slice/pizzasSlice'
 
 export const Home = () => {
    const { categoryId, sortType, pageState } = useSelector(selectorFilter) //передача состояния через reduxToolkit
-
    const { items, status, error } = useSelector(selectorPizzas) //передаем состояние нашего асинхронного запроса их redux
-
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const isSearch = useRef(false)
