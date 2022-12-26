@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import qs from 'qs'
 import { Categories } from '../../components/Categories/Categories'
 import { Pagination } from '../../components/Pagination/Pagination'
@@ -8,44 +8,39 @@ import { PizzaBlock } from '../../components/PizzaBlock/PizzaBlock'
 import { PizzaBlockSkeleton } from '../../components/PizzaBlockSkeleton/PizzaBlockSkeleton'
 import { Sorties, sortStates } from '../../components/Sorties/Sorties'
 import useDebounce from '../../hooks/useDebounce'
-import { paths } from '../../paths'
 import { SearchContext } from '../../hooks/Search/SearchProvider'
-
-import axios from 'axios'
-import { setFilters } from '../../store/Slice/filterSlice'
+import { selectorFilter, setFilters } from '../../store/Slice/filterSlice'
+import { axiosPizzas, selectorPizzas } from '../../store/Slice/pizzasSlice'
 
 export const Home = () => {
-   const { categoryId, sortType, pageState } = useSelector(
-      state => state.filters
-   ) //передача состояния через reduxToolkit
+   const { categoryId, sortType, pageState } = useSelector(selectorFilter) //передача состояния через reduxToolkit
+   const { items, status, error } = useSelector(selectorPizzas) //передаем состояние нашего асинхронного запроса их redux
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const isSearch = useRef(false)
    const isMounted = useRef(false)
 
    const { searchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
-   const [items, setItems] = useState([])
-   const [isLoading, setIsLoading] = useState(true)
 
    const debouncedSearchTerm = useDebounce(searchValue, 700) //задержка для поиска
    const search = debouncedSearchTerm ? `&search=${debouncedSearchTerm}` : ''
    const sortSort = sortType.sort
    const sortNumber = sortType.number
 
-   const fetchPizzas = () => {
+   const fetchPizzas = async () => {
       const category = categoryId === 0 ? '' : `category=${categoryId}`
       const sortSort = sortType.sort
 
-      setIsLoading(true) //для того чтобы скелетон подгружался на каждом запросе
-      axios
-         .get(
-            `${paths.url}/items?page=${pageState}&limit=8&${category}&sortBy=${sortSort}&order=${sortNumber}${search}`
-         )
-
-         .then(response => {
-            setItems(response.data)
-            setIsLoading(false)
+      dispatch(
+         axiosPizzas({
+            category,
+            sortSort,
+            search,
+            sortNumber,
+            pageState,
          })
+      ) //это наш созданный Thunk фсинхронный запрос из pizzasSlice
+
       window.scroll(0, 0) //чтобы при переходе на страницу с другой страницы автоматически страница переходилась вверх
    }
    //при первой загрузке  переносятся параметры в redux
@@ -83,7 +78,11 @@ export const Home = () => {
       isMounted.current = true
    }, [categoryId, sortSort, pageState, sortNumber])
 
-   const pizzas = items.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
+   const pizzas = items.map(pizza => (
+      <NavLink key={pizza.id} to={`pizza/${pizza.id}`}>
+         <PizzaBlock {...pizza} />
+      </NavLink>
+   ))
 
    const skeletons = [...new Array(6)].map((_, i) => (
       <PizzaBlockSkeleton key={i} />
@@ -96,7 +95,8 @@ export const Home = () => {
             <Sorties />
          </div>
          <h2 className='content__title'>Все пиццы</h2>
-         <div className='content__items'>{isLoading ? skeletons : pizzas}</div>
+         <div className='content__items'>{status ? pizzas : skeletons}</div>
+         {error && <h2>An error occurs:{error}</h2>}
          <Pagination />
       </div>
    )
