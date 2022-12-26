@@ -27,7 +27,10 @@ export const OnePizza = () => {
       }
       fetchPizza() //тут же и вызываем ее чтобы сделать запрос
    }, [])
-   console.log('item :>> ', item)
+
+   if (!item) {
+      return 'Идет загрукзка....'
+   } //это мы сделали условный рендер который будет отображаться пока не загрузолось наша пицца
    return (
       <>
          <div className={style.root}>

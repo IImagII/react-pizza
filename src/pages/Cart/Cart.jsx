@@ -96,14 +96,7 @@ export const Cart = () => {
                </div>
                <div className='cart__items'>
                   {items.map(item => (
-                     <ItemCart
-                        key={item.id}
-                        {...item}
-                        onClick={() => {
-                           //navigate(`/pizza/${item.id}`)
-                           console.log('click')
-                        }}
-                     />
+                     <ItemCart key={item.id} {...item} />
                   ))}
                </div>
                <div className='cart__bottom'>

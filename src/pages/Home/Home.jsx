@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import qs from 'qs'
 import { Categories } from '../../components/Categories/Categories'
 import { Pagination } from '../../components/Pagination/Pagination'
@@ -78,7 +78,11 @@ export const Home = () => {
       isMounted.current = true
    }, [categoryId, sortSort, pageState, sortNumber])
 
-   const pizzas = items.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
+   const pizzas = items.map(pizza => (
+      <NavLink key={pizza.id} to={`pizza/${pizza.id}`}>
+         <PizzaBlock {...pizza} />
+      </NavLink>
+   ))
 
    const skeletons = [...new Array(6)].map((_, i) => (
       <PizzaBlockSkeleton key={i} />
