@@ -8,7 +8,7 @@ import { selectorCarts } from '../../store/Slice/cartSlice'
 export const Header = () => {
    const { totalPrice, addCount } = useSelector(selectorCarts)
    const location = useLocation()
-   console.log('location :>> ', location)
+
    return (
       <div className='header'>
          <div className='container'>

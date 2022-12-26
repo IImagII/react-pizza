@@ -1,27 +1,47 @@
-import React, { useEffect } from 'react'
-import { selectorCarts } from '../../store/Slice/cartSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { paths } from '../../paths.js'
+import style from './OnePizza.module.scss'
 
 export const OnePizza = () => {
-   const { items } = useSelector(selectorCarts)
+   const [item, setItem] = useState({})
    const { id } = useParams()
-
+   const categories = [
+      'Все',
+      'Мясные',
+      'Вегетарианская',
+      'Гриль',
+      'Острые',
+      'Закрытые',
+   ]
+   const typeNames = ['тонкое', 'традиционное']
    useEffect(() => {
-      axios.get('')
+      const fetchPizza = async () => {
+         try {
+            const { data } = await axios.get(`${paths.url}/items/${id}`)
+            setItem(data)
+         } catch (e) {
+            console.log(e)
+         }
+      }
+      fetchPizza() //тут же и вызываем ее чтобы сделать запрос
    }, [])
-
+   console.log('item :>> ', item)
    return (
       <>
-         <img src='' alt='' />
-         <h2>nbnk</h2>
-         <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum
-            nisi deserunt accusantium unde atque nam id assumenda architecto
-            culpa placeat!
-         </p>
-         <h4>Цена за шт:</h4>
+         <div className={style.root}>
+            <img src={item.imageUrl} alt='' className={style.img} />
+            <h2>{item.title}</h2>
+            <div className={style.category}>
+               Категория пиццы:
+               <span>{categories[item.category]}</span>
+            </div>
+            <div className={style.type}>
+               Тип теста:<span>{typeNames[0]} тесто</span>
+            </div>
+            <h4>Цена за шт: {item.price}₴</h4>
+         </div>
       </>
    )
 }
