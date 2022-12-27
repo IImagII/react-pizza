@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
 import { Categories } from '../../components/Categories/Categories'
 import { Pagination } from '../../components/Pagination/Pagination'
