@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
    totalPrice: 0,
@@ -56,6 +56,7 @@ export const cardSlice = createSlice({
    },
 })
 export const selectorCarts = state => state.carts
+
 export const { addItems, removeItems, clearItems, minusItems } =
    cardSlice.actions
 

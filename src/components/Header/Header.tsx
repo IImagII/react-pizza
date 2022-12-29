@@ -2,14 +2,13 @@ import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import img from '../../assets/img/pizza-logo.svg'
 import { Search } from '../Search/Search'
-import { useSelector } from 'react-redux'
-import { selectorCarts } from '../../store/Slice/cartSlice'
+import { useAppSelector } from './../../@types/hooks'
 
 export const Header = () => {
-   const { totalPrice, items, addCount } = useSelector(state => state.carts)
-   const totalCount = items.reduce((count, item) => {
-      return item.count + count
-   }, 0) //делаем общий подсчет нашего количества чтобы учитывалось все даже однотипные пиццы
+   const { totalPrice, addCount } = useAppSelector(state => state.carts)
+   // const totalCount = items.reduce((count, item: any) => {
+   //    return item.count + count
+   // }, 0) //делаем общий подсчет нашего количества чтобы учитывалось все даже однотипные пиццы
 
    const location = useLocation()
 

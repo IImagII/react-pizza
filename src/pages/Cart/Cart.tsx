@@ -1,13 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { ItemCart } from './ItemCart'
 import { clearItems, selectorCarts } from '../../store/Slice/cartSlice'
 import { CartEmpty } from './CartEmpty'
 
 export const Cart = () => {
-   const { totalPrice, items, addCount } = useSelector(selectorCarts)
-   const dispatch = useDispatch()
+   const { totalPrice, items, addCount } = useAppSelector(selectorCarts)
+   const dispatch = useAppDispatch()
 
    const handleClearItems = () => {
       dispatch(clearItems())
@@ -103,11 +103,9 @@ export const Cart = () => {
                <div className='cart__bottom'>
                   <div className='cart__bottom-details'>
                      <span>
-                        {' '}
                         Всего пицц: <b>{addCount} шт.</b>{' '}
                      </span>
                      <span>
-                        {' '}
                         Сумма заказа: <b>{totalPrice} ₴</b>{' '}
                      </span>
                   </div>

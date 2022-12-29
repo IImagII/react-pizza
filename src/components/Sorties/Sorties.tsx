@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { setSortState } from '../../store/Slice/filterSlice'
+import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 
-export const sortStates = [
+type TypeFunctionSort = (obj: ObjType, index: number) => void
+
+interface ObjType {
+   name: string
+   sort: string
+   number: string
+}
+
+export const sortStates: ObjType[] = [
    { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
    { name: 'цене по ув.', sort: 'price', number: 'asc' },
    { name: 'алфавиту А-Я', sort: 'title', number: 'asc' },
@@ -12,19 +20,20 @@ export const sortStates = [
 ] //это делается для того чтобы разное название передавать в данный компонент одно в родительский для сортировкки дургое
 
 export const Sorties = () => {
-   const [isVisible, setIsVisible] = useState(false) // для отображения окна выбора при нажатии pop-up
+   const [isVisible, setIsVisible] = useState<boolean>(false) // для отображения окна выбора при нажатии pop-up
 
-   const sortState = useSelector(state => state.filters.sortType)
-   const dispatch = useDispatch()
-   const sortRef = useRef()
-   const handleSortChange = (obj, index) => {
+   const sortState = useAppSelector(state => state.filters.sortType)
+   const dispatch = useAppDispatch()
+   const sortRef = useRef<HTMLDivElement>(null)
+
+   const handleSortChange: TypeFunctionSort = (obj, index) => {
       setIsVisible(false)
       dispatch(setSortState(index))
       dispatch(setSortState(obj))
    }
    useEffect(() => {
-      const handleClickSort = e => {
-         if (!e.path.includes(sortRef.current)) {
+      const handleClickSort = (event: any) => {
+         if (!event.path.includes(sortRef.current)) {
             setIsVisible(false)
          }
       }

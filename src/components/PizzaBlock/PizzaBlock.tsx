@@ -1,16 +1,33 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { addItems } from '../../store/Slice/cartSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { NavLink } from 'react-router-dom'
 
-export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
-   const [sizeIndex, setSizeIndex] = useState(0)
-   const [typeChange, setTypeChange] = useState(0)
-   const cartItem = useSelector(state =>
+export interface PizzaBloCkType {
+   id: string
+   title: string
+   price: number
+   imageUrl: string
+   types: number[]
+   sizes: number[]
+   count?: number | undefined
+}
+
+export const PizzaBlock: FC<PizzaBloCkType> = ({
+   id,
+   title,
+   price,
+   imageUrl,
+   types,
+   sizes,
+}) => {
+   const [sizeIndex, setSizeIndex] = useState<number>(0)
+   const [typeChange, setTypeChange] = useState<number>(0)
+   const cartItem = useAppSelector(state =>
       state.carts.items.find(item => item.id === id)
    ) // ищем наш товар если id совпадает то вытягиваем свойство count
    const typeNames = ['тонкое ', 'традиционное ']
-   const dispatch = useDispatch()
+   const dispatch = useAppDispatch()
 
    const addCount = cartItem ? cartItem.count : 0 // делаем проверку есть ли товар в корзине и взависимости от этого выддаем число товара в корзинеы
 

@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { setCategoryId } from '../../store/Slice/filterSlice'
 
 export const Categories = () => {
-   const categoryId = useSelector(state => state.filters.categoryId)
-   const dispatch = useDispatch()
-   const categories = [
+   const categoryId = useAppSelector(state => state.filters.categoryId)
+   const dispatch = useAppDispatch()
+
+   type CategoriesType = Array<string>
+
+   const categories: CategoriesType = [
       'Все',
       'Мясные',
       'Вегетарианская',

@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import emptyCart from '../../assets/img/empty-cart.png'
 
-export const CartEmpty = () => {
+export const CartEmpty: FC = () => {
    return (
       <div className='content'>
          <div className='container container--cart'>
             <div className='cart cart--empty'>
                <h2>
-                  Корзина пустая <icon>😕</icon>
+                  Корзина пустая <span>😕</span>
                </h2>
                <p>
                   Вероятней всего, вы не заказывали ещё пиццу.
