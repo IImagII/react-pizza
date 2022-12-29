@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { paths } from '../../paths.js'
 import style from './OnePizza.module.scss'
 
-export const OnePizza = () => {
-   const [item, setItem] = useState({})
+interface IPizza {
+   imageUrl: string
+   title: string
+   category: number
+   price: number
+}
+export const OnePizza: FC = () => {
+   const [item, setItem] = useState<IPizza>()
+
    const { id } = useParams()
    const categories = [
       'Все',
@@ -28,9 +35,9 @@ export const OnePizza = () => {
       fetchPizza() //тут же и вызываем ее чтобы сделать запрос
    }, [])
 
-   // if (!item) {
-   //    return 'Идет загрукзка....'
-   // } //это мы сделали условный рендер который будет отображаться пока не загрузолось наша пицца
+   if (!item) {
+      return <>'Идет загрукзка....'</> //для ts взято в <></>
+   } //это мы сделали условный рендер который будет отображаться пока не загрузолось наша пицца
    return (
       <>
          <div className={style.root}>

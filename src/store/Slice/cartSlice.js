@@ -34,6 +34,7 @@ export const cardSlice = createSlice({
             // если товар нашелся то мы уменьшаем счетчик на -- в корзине
             findItem.count--
          }
+         state.items = state.items.filter(obj => obj.count !== 0) //этой строкой мы убераем товар из конзины если у нас количество товара равно 0
          state.totalPrice = state.items.reduce((total, item) => {
             return item.price * item.count + total
          }, 0) // общий подсчет сколько стоит товар
@@ -41,7 +42,6 @@ export const cardSlice = createSlice({
       },
       removeItems: (state, action) => {
          state.items = state.items.filter(item => item.id !== action.payload.id) // удаляем товар из корзины
-
          state.items = state.items.filter(item => item.id !== action.payload) // удаляем товар из корзины
          state.totalPrice = state.items.reduce((total, item) => {
             return item.price * item.count + total
