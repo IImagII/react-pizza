@@ -6,9 +6,7 @@ export const Categories = () => {
    const categoryId = useAppSelector(state => state.filters.categoryId)
    const dispatch = useAppDispatch()
 
-   type CategoriesType = Array<string>
-
-   const categories: CategoriesType = [
+   const categories: Array<string> = [
       'Все',
       'Мясные',
       'Вегетарианская',

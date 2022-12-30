@@ -4,11 +4,11 @@ import { SearchContext } from '../../hooks/Search/SearchProvider'
 
 export const Search = () => {
    const { searchValue, setSearchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
-   const inputRef = useRef()
+   const inputRef = useRef<HTMLInputElement>(null)
 
-   const addSearchValue = e => {
+   const addSearchValue = () => {
       setSearchValue('')
-      inputRef.current.focus()
+      inputRef.current?.focus() //в данном случае мы указали ? поотмучто хотим показать чтобы была проверка на null
    }
 
    return (

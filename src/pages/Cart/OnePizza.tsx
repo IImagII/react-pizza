@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { paths } from '../../paths.js'
+import { paths } from '../../paths'
 import style from './OnePizza.module.scss'
 
 interface IPizza {

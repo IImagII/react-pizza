@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
 import { Categories } from '../../components/Categories/Categories'
@@ -13,10 +13,10 @@ import { selectorFilter, setFilters } from '../../store/Slice/filterSlice'
 import { axiosPizzas, selectorPizzas } from '../../store/Slice/pizzasSlice'
 
 export const Home = () => {
-   const { categoryId, sortType, pageState } = useSelector(selectorFilter) //передача состояния через reduxToolkit
-   const { items, status, error } = useSelector(selectorPizzas) //передаем состояние нашего асинхронного запроса их redux
+   const { categoryId, sortType, pageState } = useAppSelector(selectorFilter) //передача состояния через reduxToolkit
+   const { items, status, error } = useAppSelector(selectorPizzas) //передаем состояние нашего асинхронного запроса их redux
    const navigate = useNavigate()
-   const dispatch = useDispatch()
+   const dispatch = useAppDispatch()
    const isSearch = useRef(false)
    const isMounted = useRef(false)
 
@@ -78,7 +78,9 @@ export const Home = () => {
       isMounted.current = true
    }, [categoryId, sortSort, pageState, sortNumber])
 
-   const pizzas = items.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
+   const pizzas = items.map((pizza: any) => (
+      <PizzaBlock {...pizza} key={pizza.id} />
+   ))
 
    const skeletons = [...new Array(6)].map((_, i) => (
       <PizzaBlockSkeleton key={i} />

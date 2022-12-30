@@ -32,8 +32,11 @@ export const Sorties = () => {
       dispatch(setSortState(obj))
    }
    useEffect(() => {
-      const handleClickSort = (event: any) => {
-         if (!event.path.includes(sortRef.current)) {
+      const handleClickSort = (event: MouseEvent) => {
+         if (
+            sortRef.current &&
+            !event.composedPath().includes(sortRef.current)
+         ) {
             setIsVisible(false)
          }
       }

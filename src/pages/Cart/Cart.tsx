@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { ItemCart } from './ItemCart'
 import { clearItems, selectorCarts } from '../../store/Slice/cartSlice'
 import { CartEmpty } from './CartEmpty'
 
-export const Cart = () => {
+export const Cart: FC = () => {
    const { totalPrice, items, addCount } = useAppSelector(selectorCarts)
    const dispatch = useAppDispatch()
 
@@ -96,7 +96,7 @@ export const Cart = () => {
                   </div>
                </div>
                <div className='cart__items'>
-                  {items.map(item => (
+                  {items.map((item: any) => (
                      <ItemCart key={item.id} {...item} />
                   ))}
                </div>

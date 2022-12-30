@@ -2,18 +2,18 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { paths } from '../../paths'
 
-type Todo = {
-   items: []
-   status: false
-   error: null
-}
-interface IParams {
-   category: string
-   sortSort: string
-   search: string
-   sortNumber: string
-   pageState: string
-}
+// type IPizza = {
+//    items: []
+//    status: false
+//    error: null
+// }
+// interface IParams {
+//    category: string
+//    sortSort: string
+//    search: string
+//    sortNumber: string
+//    pageState: string
+// }
 
 export const axiosPizzas = createAsyncThunk(
    'pizzas/fetchPizzasStatus',
@@ -25,12 +25,12 @@ export const axiosPizzas = createAsyncThunk(
          )
          return data
       } catch (error) {
-         return rejectWithValue(error.message)
+         return rejectWithValue(error)
       }
    }
 )
 
-const initialState: Todo = {
+const initialState: IPizza = {
    items: [],
    status: false,
    error: null,
@@ -46,7 +46,7 @@ export const pizzasSlice = createSlice({
          state.status = false
          state.error = null
       },
-      [axiosPizzas.fulfilled]: (state, action) ) => {
+      [axiosPizzas.fulfilled]: (state, action) => {
          //Добавляем пицц в наш массив
          state.status = true
          state.items = action.payload

@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { addItems } from '../../store/Slice/cartSlice'
+import { addItems, selectorCartsById } from '../../store/Slice/cartSlice'
 import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { NavLink } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ export interface PizzaBloCkType {
    imageUrl: string
    types: number[]
    sizes: number[]
-   count?: number | undefined
+   count?: number
 }
 
 export const PizzaBlock: FC<PizzaBloCkType> = ({
@@ -23,9 +23,8 @@ export const PizzaBlock: FC<PizzaBloCkType> = ({
 }) => {
    const [sizeIndex, setSizeIndex] = useState<number>(0)
    const [typeChange, setTypeChange] = useState<number>(0)
-   const cartItem = useAppSelector(state =>
-      state.carts.items.find(item => item.id === id)
-   ) // ищем наш товар если id совпадает то вытягиваем свойство count
+   const cartItem = useAppSelector(selectorCartsById(id))
+   // ищем наш товар если id совпадает то вытягиваем свойство count
    const typeNames = ['тонкое ', 'традиционное ']
    const dispatch = useAppDispatch()
 
@@ -46,7 +45,6 @@ export const PizzaBlock: FC<PizzaBloCkType> = ({
    return (
       <div className='pizza-block'>
          <NavLink to={`pizza/${id}`}>
-            {' '}
             <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
          </NavLink>
          <h4 className='pizza-block__title'>{title}</h4>
