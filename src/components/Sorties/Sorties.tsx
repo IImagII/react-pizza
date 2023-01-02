@@ -1,16 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { setSortState } from '../../store/Slice/filterSlice'
 import { useAppDispatch, useAppSelector } from '../../@types/hooks'
+import { ISortType } from '../../store/Slice/filterSlice'
 
-type TypeFunctionSort = (obj: ObjType, index: number) => void
+type TypeFunctionSort = (obj: ISortType) => void
 
-interface ObjType {
-   name: string
-   sort: string
-   number: string
-}
-
-export const sortStates: ObjType[] = [
+export const sortStates: ISortType[] = [
    { name: 'популярности по ув.', sort: 'rating', number: 'asc' },
    { name: 'цене по ув.', sort: 'price', number: 'asc' },
    { name: 'алфавиту А-Я', sort: 'title', number: 'asc' },
@@ -26,9 +21,9 @@ export const Sorties = () => {
    const dispatch = useAppDispatch()
    const sortRef = useRef<HTMLDivElement>(null)
 
-   const handleSortChange: TypeFunctionSort = (obj, index) => {
+   const handleSortChange: TypeFunctionSort = obj => {
       setIsVisible(false)
-      dispatch(setSortState(index))
+      // dispatch(setSortState(obj.number))
       dispatch(setSortState(obj))
    }
    useEffect(() => {
@@ -71,7 +66,7 @@ export const Sorties = () => {
                      <li
                         key={index}
                         className={sortState.name === obj.name ? 'active' : ''}
-                        onClick={() => handleSortChange(obj, index)}
+                        onClick={() => handleSortChange(obj)}
                      >
                         {obj.name}
                      </li>

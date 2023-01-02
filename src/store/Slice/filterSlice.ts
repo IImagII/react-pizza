@@ -1,6 +1,19 @@
-import { createSlice,PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 
-const initialState = {
+export type ISortType = {
+   name: string
+   sort: string // это делается чтобы можно было передавать только определенные строки
+   number: string
+}
+
+interface IFilterState {
+   categoryId: number
+   sortType: ISortType
+   pageState: number
+}
+
+const initialState: IFilterState = {
    categoryId: 0,
    sortType: {
       name: 'популярности по ув.',
@@ -14,13 +27,13 @@ export const filterSlice = createSlice({
    name: 'filters',
    initialState,
    reducers: {
-      setCategoryId: (state, action) => {
+      setCategoryId: (state, action: PayloadAction<number>) => {
          state.categoryId = action.payload
       },
-      setSortState: (state, action) => {
+      setSortState: (state, action: PayloadAction<ISortType>) => {
          state.sortType = action.payload
       },
-      setPageState: (state, action) => {
+      setPageState: (state, action: PayloadAction<number>) => {
          state.pageState = action.payload
       },
       setFilters: (state, action) => {
@@ -30,7 +43,7 @@ export const filterSlice = createSlice({
       },
    },
 })
-export const selectorFilter = state => state.filters
+export const selectorFilter = (state: RootState) => state.filters
 export const { setCategoryId, setSortState, setPageState, setFilters } =
    filterSlice.actions
 

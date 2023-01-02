@@ -3,7 +3,7 @@ import { addItems, selectorCartsById } from '../../store/Slice/cartSlice'
 import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { NavLink } from 'react-router-dom'
 
-export interface PizzaBloCkType {
+export type PizzaBloCkType = {
    id: string
    title: string
    price: number
@@ -91,7 +91,7 @@ export const PizzaBlock: FC<PizzaBloCkType> = ({
                   />
                </svg>
                <span>Добавить</span>
-               {addCount > 0 && <i>{addCount}</i>}
+               {addCount! > 0 && <i>{addCount}</i>}
                {/* делаем чтобы показывалось
                сколько товарра заказывалось в штуках */}
             </button>
