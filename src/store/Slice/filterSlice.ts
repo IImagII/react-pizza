@@ -7,7 +7,7 @@ export type ISortType = {
    number: string
 }
 
-interface IFilterState {
+type IFilterState = {
    categoryId: number
    sortType: ISortType
    pageState: number

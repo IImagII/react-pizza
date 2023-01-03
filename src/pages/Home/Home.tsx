@@ -78,9 +78,7 @@ export const Home = () => {
       isMounted.current = true
    }, [categoryId, sortSort, pageState, sortNumber])
 
-   const pizzas = items.map((pizza: any) => (
-      <PizzaBlock {...pizza} key={pizza.id} />
-   ))
+   const pizzas = items.map(pizza => <PizzaBlock {...pizza} key={pizza.id} />)
 
    const skeletons = [...new Array(6)].map((_, i) => (
       <PizzaBlockSkeleton key={i} />

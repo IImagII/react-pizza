@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PizzaBloCkType } from '../../components/PizzaBlock/PizzaBlock'
 import { RootState } from '../store'
 
-interface ICartType {
+type ICartType = {
    totalPrice: number
    items: PizzaBloCkType[] // обязательно добавлять в конце [] а не просто импортировать уже созданный тип
    addCount: number
@@ -39,7 +39,7 @@ export const cardSlice = createSlice({
             0
          ) //делаем общий подсчет количества товаров
       },
-      minusItems: (state, action) => {
+      minusItems: (state, action: PayloadAction<string>) => {
          const findItem = state.items.find(item => item.id === action.payload) //ищем в нашем items похожий товар
          if (findItem) {
             // если товар нашелся то мы уменьшаем счетчик на -- в корзине
