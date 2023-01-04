@@ -18,7 +18,7 @@ export const Home = () => {
    const navigate = useNavigate()
    const dispatch = useAppDispatch()
    const isSearch = useRef(false)
-   const isMounted = useRef(false)
+   const isMounted = useRef(false) //это нужно длятого чтобы понимать что делать при первой загрузке
 
    const { searchValue } = useContext(SearchContext) //использоавние хука для прокидывания пропсов
 

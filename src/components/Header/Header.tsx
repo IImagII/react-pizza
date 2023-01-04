@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import img from '../../assets/img/pizza-logo.svg'
 import { Search } from '../Search/Search'
 import { useAppSelector } from './../../@types/hooks'
 
 export const Header = () => {
-   const { totalPrice, addCount } = useAppSelector(state => state.carts)
+   const { items, totalPrice, addCount } = useAppSelector(state => state.carts)
+   const isMounted = React.useRef(false) // это делается для отго чтобы задавать что должно произойти при первом рендеринге
    // const totalCount = items.reduce((count, item: any) => {
    //    return item.count + count
    // }, 0) //делаем общий подсчет нашего количества чтобы учитывалось все даже однотипные пиццы
 
-   const location = useLocation()
+   const location = useLocation() //делаем чтобы достать путь и потом уберать козину смотреть код ниже
+
+   useEffect(() => {
+      if (isMounted.current) {
+         //мы это сделали для того чтобы не вызывать эту логику сразу при первом рендере
+         localStorage.setItem('addCount', JSON.stringify(addCount))
+         localStorage.setItem('items', JSON.stringify(items))
+         localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
+      }
+      isMounted.current = true // тут мы меняем наше состояние и будем вызывать уже нашу логику после этого
+   }, [addCount, items, totalPrice])
 
    return (
       <div className='header'>
