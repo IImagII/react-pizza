@@ -2,9 +2,13 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from '../../@types/hooks'
 import { setCategoryId } from '../../store/Slice/filterSlice'
 
-export const Categories = () => {
+export const Categories: React.FC = React.memo(() => {
    const categoryId = useAppSelector(state => state.filters.categoryId)
    const dispatch = useAppDispatch()
+
+   const handleSetCategory = React.useCallback((index: number) => {
+      dispatch(setCategoryId(index))
+   }, [])
 
    const categories: Array<string> = [
       'Все',
@@ -22,7 +26,7 @@ export const Categories = () => {
                <li
                   key={index}
                   className={categoryId === index ? 'active' : ''}
-                  onClick={() => dispatch(setCategoryId(index))}
+                  onClick={() => handleSetCategory(index)}
                >
                   {catogorie}
                </li>
@@ -30,4 +34,4 @@ export const Categories = () => {
          </ul>
       </div>
    )
-}
+})

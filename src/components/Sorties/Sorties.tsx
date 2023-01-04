@@ -14,7 +14,7 @@ export const sortStates: ISortType[] = [
    { name: 'алфавиту Я-А', sort: 'title', number: 'desc' },
 ] //это делается для того чтобы разное название передавать в данный компонент одно в родительский для сортировкки дургое
 
-export const Sorties = () => {
+export const Sorties: React.FC = React.memo(() => {
    const [isVisible, setIsVisible] = useState<boolean>(false) // для отображения окна выбора при нажатии pop-up
 
    const sortState = useAppSelector(state => state.filters.sortType)
@@ -76,4 +76,4 @@ export const Sorties = () => {
          )}
       </div>
    )
-}
+})
