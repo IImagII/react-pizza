@@ -229,6 +229,14 @@ body {
                   display: none;
                }
             }
+            &:disabled {
+               opacity: 0.4;
+               border-color: rgba(99, 96, 96, 0.589);
+               pointer-events: none; //отменяет все события
+               svg path {
+                  fill: rgba(99, 96, 96, 0.589);
+               }
+            }
          }
 
          b {

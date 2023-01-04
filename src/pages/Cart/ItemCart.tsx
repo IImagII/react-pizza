@@ -26,9 +26,7 @@ export const ItemCart: FC<PizzaBloCkType> = ({
    }
 
    const handleMinusItems = () => {
-      if (count! > 0) {
-         dispatch(minusItems(id))
-      } //эти условием мы запрещаем делать dispatch если у нас количество товара равно 0
+      dispatch(minusItems(id))
    }
    return (
       <div className='cart__item'>
@@ -42,7 +40,8 @@ export const ItemCart: FC<PizzaBloCkType> = ({
             </p>
          </div>
          <div className='cart__item-count'>
-            <div
+            <button
+               disabled={count === 1}
                onClick={handleMinusItems}
                className='button button--outline button--circle cart__item-count-minus'
             >
@@ -62,7 +61,7 @@ export const ItemCart: FC<PizzaBloCkType> = ({
                      fill='#EB5A1E'
                   />
                </svg>
-            </div>
+            </button>
 
             <b>{count}</b>
             <div
