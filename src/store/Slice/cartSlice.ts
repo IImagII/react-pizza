@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PizzaBloCkType } from '../../components/PizzaBlock/PizzaBlock'
 import { RootState } from '../store'
-import {
-   getAddCountFromLS,
-   getItemsFromLS,
-   getTotalPriceFromLS,
-} from '../../utils/getItemsFromLS'
 
 type ICartType = {
    totalPrice: number
@@ -15,9 +10,9 @@ type ICartType = {
 
 const initialState: ICartType = {
    //мы заменили на функцию чтобы доставалось значени из нашего localStorage
-   totalPrice: getTotalPriceFromLS(),
-   items: getItemsFromLS(),
-   addCount: getAddCountFromLS(),
+   totalPrice: 0,
+   items: [],
+   addCount: 0,
 }
 
 export const cardSlice = createSlice({
