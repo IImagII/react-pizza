@@ -10,7 +10,7 @@ interface IPizza {
    category: number
    price: number
 }
-export const OnePizza: FC = () => {
+const OnePizza: FC = () => {
    const [item, setItem] = useState<IPizza>()
 
    const { id } = useParams()
@@ -55,3 +55,4 @@ export const OnePizza: FC = () => {
       </>
    )
 }
+export default OnePizza

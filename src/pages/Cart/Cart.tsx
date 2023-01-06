@@ -5,7 +5,7 @@ import { ItemCart } from './ItemCart'
 import { clearItems, selectorCarts } from '../../store/Slice/cartSlice'
 import { CartEmpty } from './CartEmpty'
 
-export const Cart: FC = () => {
+const Cart: FC = () => {
    const { totalPrice, items, addCount } = useAppSelector(selectorCarts)
    const dispatch = useAppDispatch()
 
@@ -142,3 +142,4 @@ export const Cart: FC = () => {
       </div>
    )
 }
+export default Cart
