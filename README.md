@@ -4,7 +4,6 @@
 - React
 - Redux-toolkit
 - React router
-- Поиск
 - axios
 
 ### Что сделано
