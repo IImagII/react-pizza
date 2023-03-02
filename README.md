@@ -14,4 +14,4 @@
 - Реализован подгрузка данных по пиццам с сервера(https://mockapi.io/)
 
 
-
+Демо-версия проекта - https://react-pizza-iimagii.vercel.app/
